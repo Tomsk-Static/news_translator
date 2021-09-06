@@ -1,6 +1,6 @@
 from typing import List, Optional
 from newspaper import build, news_pool
-from .models import Article, Category
+from .models import ArticleDb, CategoryDb
 import uuid
 
 
@@ -9,7 +9,7 @@ def categories_download(url_source: str, uuid_source: str):
     categories = list()
 
     for category_url in paper.category_urls():
-        category = Category(
+        category = CategoryDb(
             uuid = str(uuid.uuid4()),
             source_uuid = uuid_source,
             text = 'Category from {}'.format(url_source),
@@ -30,7 +30,7 @@ def articles_download(url_source: str, source_uuid: str, category_uuid: str, new
         row_article.parse()
         
         if row_article.title and row_article.text:
-            article = Article(
+            article = ArticleDb(
                 uuid = str(uuid.uuid4()),
                 title = row_article.title,
                 text = row_article.text,
