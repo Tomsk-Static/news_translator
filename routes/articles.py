@@ -27,9 +27,9 @@ def read_articles(db: Session=Depends(get_db)):
     
 
 @app.get('/article/{uuid}', response_model=models.ArticleDb, tags=["Article"])
-def read_article(uuid: str, db: Session=Depends(get_db)):
-    return crud.get_article(uuid=uuid, db=db)
-     
+def read_article(uuid: str, lang: Optional[str] = None, db: Session=Depends(get_db)):
+    return crud.get_article(uuid=uuid, dest_lang=lang, db=db)
+ 
 
 @app.post('/article', response_model=models.ArticleDb, tags=["Article"])
 def create_article(article: models.ArticleCreate, db: Session=Depends(get_db)):

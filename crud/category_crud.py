@@ -21,6 +21,7 @@ def create_category(category: models.CategoryCreate, db: Session):
     db.refresh(db_category)
     return db_category
 
+
 def delete_category(uuid: str, db: Session):
     db.query(orm.Article).filter(orm.Article.category_uuid==uuid).delete()
     db.query(orm.Category).filter(orm.Category.uuid==uuid).delete()
@@ -36,6 +37,7 @@ def delete_categories_all(db: Session):
 
 
 def get_categories_articles(uuid: str, db: Session):
+    print(uuid)
     db_articles = db.query(orm.Article).filter(orm.Article.category_uuid==uuid).all()
     return db_articles
 

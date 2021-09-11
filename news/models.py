@@ -27,10 +27,11 @@ class CategoryCreate(BaseModel):
 
 
 class CategoryDb(CategoryCreate):
-    uuid = str
+    uuid: str
 
     class Config:
         orm_mode = True
+
 
 class SourceCreate(BaseModel):
     url: str

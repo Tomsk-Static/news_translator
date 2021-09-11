@@ -46,7 +46,7 @@ def delete_categories_all(db: Session=Depends(get_db)):
     return crud.delete_categories_all(db=db)
 
 
-@app.get('/category/articles', response_model=List[models.ArticleDb], tags=["Category"])
+@app.get('/category/articles/{uuid}', response_model=List[models.ArticleDb], tags=["Category"])
 def get_categories_articles(uuid: str, db: Session=Depends(get_db)):
     return crud.get_categories_articles(uuid=uuid, db=db)
 

@@ -46,7 +46,7 @@ def delete_source(uuid: str, db: Session=Depends(get_db)):
 def delete_sources_all(db: Session=Depends(get_db)):
     return crud.delete_sources(db=db)
 
-@app.get('/source/categories', response_model=List[models.CategoryDb], tags=["Source"])
+@app.get('/source/categories/{uuid}', response_model=List[models.CategoryDb], tags=["Source"])
 def get_sources_categories(uuid: str, db: Session=Depends(get_db)):
     return crud.get_sources_categories(uuid=uuid, db=db)
 

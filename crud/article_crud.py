@@ -1,16 +1,20 @@
-from typing import List
+from typing import List, Optional
 from sqlalchemy.orm import Session
 import uuid
 
 from ..database import alch_models as orm
 from ..news import models, download
+from ..translator import translator as t
+
 
 def get_articles(db: Session):
     return db.query(orm.Article).all()
 
 
-def get_article(uuid: str, db: Session):
+def get_article(uuid: str, db: Session, dest_lang: Optional[str] = None):
     db_article = db.query(orm.Article).filter(orm.Article.uuid==uuid).first()
+    if dest_lang:
+        db_article.text = t.word_translate(text=db_article.text, dest=dest_lang)
     return db_article
 
 
