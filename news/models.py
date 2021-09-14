@@ -3,6 +3,10 @@ from typing import Optional, List
 from datetime import datetime
 
 
+class Uuid(BaseModel):
+    value: str
+
+
 class ArticleCreate(BaseModel):
     title: str
     text: Optional[str] = None
@@ -18,6 +22,11 @@ class ArticleDb(ArticleCreate):
     # tell the Pydantic model to read the data even if it is not a dict, but an ORM model
     class Config:
         orm_mode = True
+
+
+class DownloadArticles(BaseModel):
+    uuid: Uuid
+    count: int
 
 
 class CategoryCreate(BaseModel):

@@ -52,5 +52,5 @@ def get_categories_articles(uuid: str, db: Session=Depends(get_db)):
 
 
 @app.post('/category/download/articles', response_model=List[models.ArticleDb], tags=["Category"])
-def download_categories_articles(category_uuid: str, count: int, db: Session=Depends(get_db)):
-    return crud.download_articles(uuid=category_uuid, news_per_source=count, db=db)
+def download_categories_articles(download_articles: models.DownloadArticles, db: Session=Depends(get_db)):
+    return crud.download_articles(uuid=download_articles.uuid.value, news_per_source=download_articles.count, db=db)

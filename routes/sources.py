@@ -52,5 +52,5 @@ def get_sources_categories(uuid: str, db: Session=Depends(get_db)):
 
 
 @app.post('/source/download/categories', response_model=List[models.CategoryDb], tags=["Source"])
-def download_sources_categories(source_uuid: str, db: Session=Depends(get_db)):
-    return crud.download_categories(uuid=source_uuid, db=db)
+def download_sources_categories(source_uuid: models.Uuid, db: Session=Depends(get_db)):
+    return crud.download_categories(uuid=source_uuid.value, db=db)
