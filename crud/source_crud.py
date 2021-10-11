@@ -15,7 +15,15 @@ def create_source(source: models.SourceCreate, db: Session):
 
 
 def get_sources(db: Session):
-    return db.query(orm.Source).all()
+    db_sources = db.query(orm.Source).all()
+    sources = list()
+
+    for db_source in db_sources:
+        source = models.SourceDb.from_orm(db_source)
+        source.categories_count = db.query(orm.Category).filter(orm.Category.source_uuid==db_source.uuid).count()
+        sources.append(source)
+
+    return sources
 
 
 def get_source(uuid: str, db: Session):
@@ -40,7 +48,14 @@ def delete_sources_all(db: Session):
 
 def get_sources_categories(uuid: str, db: Session):
     db_categories = db.query(orm.Category).filter(orm.Category.source_uuid==uuid).all()
-    return db_categories
+    categories = list()
+
+    for db_category in db_categories:
+        category = models.CategoryDb.from_orm(db_category)
+        category.articles_count = db.query(orm.Article).filter(orm.Article.category_uuid==category.uuid).count()
+        categories.append(category)
+
+    return categories
 
 
 def download_categories(uuid: str, db: Session):

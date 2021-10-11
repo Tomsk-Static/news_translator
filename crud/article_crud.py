@@ -18,6 +18,16 @@ def get_article(uuid: str, db: Session, dest_lang: Optional[str] = None):
     return db_article
 
 
+def get_article_like_list(uuid: str, db: Session):
+    db_article = db.query(orm.Article).filter(orm.Article.uuid==uuid).first()
+    db_article.text = db_article.text.split()
+    return db_article
+
+
+def get_word_translate(word: str, dest_lang: str):
+    return t.word_translate(text=word, dest_lang=dest_lang)
+
+
 def create_article(article: models.ArticleCreate, db: Session):
     # article = str(uuid.uuid4)
     db_article = orm.Article(**article.dict(), uuid=str(uuid.uuid4()))

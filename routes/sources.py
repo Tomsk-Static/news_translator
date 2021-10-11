@@ -46,11 +46,12 @@ def delete_source(uuid: str, db: Session=Depends(get_db)):
 def delete_sources_all(db: Session=Depends(get_db)):
     return crud.delete_sources(db=db)
 
+
 @app.get('/source/categories/{uuid}', response_model=List[models.CategoryDb], tags=["Source"])
 def get_sources_categories(uuid: str, db: Session=Depends(get_db)):
     return crud.get_sources_categories(uuid=uuid, db=db)
 
 
-@app.post('/source/download/categories', response_model=List[models.CategoryDb], tags=["Source"])
-def download_sources_categories(source_uuid: models.Uuid, db: Session=Depends(get_db)):
-    return crud.download_categories(uuid=source_uuid.value, db=db)
+@app.post('/source/{uuid}/download/categories', response_model=List[models.CategoryDb], tags=["Source"])
+def download_sources_categories(uuid: str, db: Session=Depends(get_db)):
+    return crud.download_categories(uuid=uuid, db=db)

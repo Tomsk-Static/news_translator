@@ -45,17 +45,6 @@ def articles_download(url_source: str, source_uuid: str, category_uuid: str, new
     return articles
 
 
-# def news_updater_threads():
-#     slate_paper = build('http://slate.com')
-#     tc_paper = build('http://techcrunch.com')
-#     espn_paper = build('http://espn.com')
-
-#     papers = [slate_paper, tc_paper, espn_paper]
-#     news_pool.set(papers, threads_per_source=2) # (3*2) = 6 threads total
-#     news_pool.join()
-
-
-# news_updater_threads()
 
 
     

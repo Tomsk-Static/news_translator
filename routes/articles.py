@@ -49,3 +49,13 @@ def delete_article_all(db: Session=Depends(get_db)):
 @app.patch('/article', response_model=models.ArticleDb, tags=["Article"])
 def update_article(article: models.ArticleCreate, db: Session=Depends(get_db)):
     return crud.update_article(article=article, db=db)
+
+
+@app.get('/article/{uuid}/list', response_model=models.ArticleForReading, tags=["Article"])
+def get_article_like_list(uuid: str, db: Session=Depends(get_db)):
+    return crud.get_article_like_list(uuid=uuid, db=db)
+
+
+@app.get('/article/translate/{word}', tags=["Article"])
+def get_word_translate(word: str, dest_lang: Optional[str] = 'ru'):
+    return crud.get_word_translate(word=word, dest_lang=dest_lang)

@@ -29,6 +29,9 @@ class DownloadArticles(BaseModel):
     count: int
 
 
+class ArticleForReading(ArticleDb):
+    text: Optional[List[str]] = None
+
 class CategoryCreate(BaseModel):
     source_uuid: str
     text: str
@@ -37,6 +40,7 @@ class CategoryCreate(BaseModel):
 
 class CategoryDb(CategoryCreate):
     uuid: str
+    articles_count: Optional[int] = 0
 
     class Config:
         orm_mode = True
@@ -49,7 +53,8 @@ class SourceCreate(BaseModel):
 
 class SourceDb(SourceCreate):
     uuid: str
-    
+    categories_count: Optional[int] = 0
+        
     class Config:
         orm_mode = True
     

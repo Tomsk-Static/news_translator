@@ -7,7 +7,10 @@ from ..news import models, download
 
 
 def get_category(uuid: str, db: Session):
-    return db.query(orm.Category).filter(orm.Category.uuid==uuid).first()
+    db_category = db.query(orm.Category).filter(orm.Category.uuid==uuid).first()
+    category = models.CategoryDb.from_orm(db_category)
+    category.articles_count = db.query(orm.Article).filter(orm.Article.category_uuid==category.uuid).count()
+    return category 
 
 
 def get_categories(db: Session):
@@ -37,7 +40,6 @@ def delete_categories_all(db: Session):
 
 
 def get_categories_articles(uuid: str, db: Session):
-    print(uuid)
     db_articles = db.query(orm.Article).filter(orm.Article.category_uuid==uuid).all()
     return db_articles
 
