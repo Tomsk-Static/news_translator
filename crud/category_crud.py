@@ -14,7 +14,15 @@ def get_category(uuid: str, db: Session):
 
 
 def get_categories(db: Session):
-    return db.query(orm.Category).all()
+    db_categories = db.query(orm.Category).all()
+    categories = list()
+
+    for db_category in db_categories:
+        category = models.CategoryDb.from_orm(db_category)
+        category.articles_count = db.query(orm.Article).filter(orm.Article.category_uuid==category.uuid).count()
+        categories.append(category)
+
+    return categories
 
 
 def create_category(category: models.CategoryCreate, db: Session):
